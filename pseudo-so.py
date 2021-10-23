@@ -1,10 +1,13 @@
+from process import create_processes
+from process import Process
+REAL_TIME = 64
+USER = 960
+process_list = []
 
-filesSO = open('files.txt','r')
-processes = open('processes.txt','r')
+def run():
+    files_so = open('files.txt','r')
+    processes = open('processes.txt','r')
+    process_list = create_processes(processes)
 
-content = filesSO.read()
-print(content)
 
-print()
-content = processes.read()
-print(content)
+run()

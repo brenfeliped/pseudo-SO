@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Process:
 
         def __init__(self, data_process):
@@ -10,8 +13,18 @@ class Process:
             self.request_modem = data_process[6]
             self.cod_disc = data_process[7]
         
-        
+
+
+
+
 
               
 
-
+def create_processes(file_processes):
+    content = file_processes.readlines()
+    p_list = []
+    for line in content:
+        elements = line.split(',')
+        p = Process(elements)
+        p_list.append(p)
+    return p_list
