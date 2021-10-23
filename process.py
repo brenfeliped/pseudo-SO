@@ -17,6 +17,18 @@ class Process:
 
 
 
+class Operation:
+    def __init__(self,data_operation):
+        self.id_process = int(data_operation[0])
+        self.cod_oporation = int(data_operation[1])
+        self.name_file = data_operation[2]
+        if(len(data_operation)> 3):
+            self.exists_blocks= True
+            self.num_blocks = data_operation[3]
+        else:
+            self.exists_blocks= False
+
+
 
               
 

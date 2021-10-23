@@ -1,6 +1,6 @@
 from process import create_processes
 from process import Process
-from fileSys import get_blocks_inf, get_files_list
+from fileSys import get_blocks_inf, get_files_list, get_operation_list
 REAL_TIME = 64
 USER = 960
 N_BLOCKS= 0
@@ -17,7 +17,7 @@ def run():
 
     N_BLOCKS,OCP_BLOCKS = get_blocks_inf(files_txt)
     files_list = get_files_list(files_txt)
-    
+    operations_list = get_operation_list(files_txt)
     
 
 
