@@ -12,6 +12,17 @@ class Process:
             self.request_scanner = int(data_process[5])
             self.request_modem = int(data_process[6])
             self.cod_disc = int(data_process[7])
+
+            
+            self.instructions = []  
+            self.PID = None
+            self.execTime = 0
+
+        def set_intructions(self, instrs):
+            for instr in instrs:
+                if self.PID == instr.id_process:
+                    self.instructions.append(instr)
+            return
         
 
 
@@ -35,8 +46,11 @@ class Operation:
 def create_processes(file_processes):
     
     p_list = []
+    count_PID = 0
     for line in file_processes:
         elements = line.split(',')
         p = Process(elements)
+        p.PID = count_PID
         p_list.append(p)
+        count_PID+=1;
     return p_list

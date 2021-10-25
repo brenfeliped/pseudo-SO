@@ -18,6 +18,10 @@ def run():
     N_BLOCKS,OCP_BLOCKS = get_blocks_inf(files_txt)
     files_list = get_files_list(files_txt)
     operations_list = get_operation_list(files_txt)
+
+    for p in process_list:
+        #print(p.PID)
+        p.set_intructions(operations_list)
     
 
 
