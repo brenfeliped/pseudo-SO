@@ -17,6 +17,7 @@ class Process:
             self.instructions = []  
             self.PID = None
             self.execTime = 0
+            self.pos_memory = 0
 
         def set_intructions(self, instrs):
             for instr in instrs:

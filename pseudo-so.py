@@ -30,8 +30,13 @@ def run():
         p.set_intructions(operations_list)
     
 
-    memory = Memory().initMemory()
-    
+    memory = Memory()
+    memory.allocateMemory(process_list[0])
+    # memory.printM()
+    memory.removeMemory(process_list[0])
+    # memory.printM()
+    memory.allocateMemory(process_list[1])
+    # memory.printM()
 
 
 
