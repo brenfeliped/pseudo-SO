@@ -1,5 +1,5 @@
 from typing import List
-
+MAX_SIZE = 1000 # tamanho máximo da fila de processos
 
 class Process:
 
@@ -31,7 +31,7 @@ class Process:
 class Operation:
     def __init__(self,data_operation):
         self.id_process = int(data_operation[0])
-        self.cod_oporation = int(data_operation[1])
+        self.cod_operation = int(data_operation[1])
         self.name_file = data_operation[2]
         if(len(data_operation)> 3):
             self.exists_blocks= True
@@ -41,6 +41,18 @@ class Operation:
 
 
 
+class Process_manager:
+
+    def __init__(self):
+        self.max_fila = MAX_SIZE
+        self.fila_real_time = []
+        self.fila_u0 = []
+        self.fila_u1 = []
+        self.fila_u2 = []
+        self.fila_u3 = []
+
+
+    
               
 
 def create_processes(file_processes):
