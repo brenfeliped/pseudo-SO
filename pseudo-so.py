@@ -2,6 +2,7 @@ from process import create_processes
 from process import Process
 from fileSys import get_blocks_inf, get_files_list, get_operation_list
 from memory import Memory
+from resources import ControlaRecursos
 REAL_TIME = 64
 USER = 960
 N_BLOCKS= 0
@@ -32,12 +33,17 @@ def run():
 
     memory = Memory()
     memory.allocateMemory(process_list[0])
-    # memory.printM()
+    # memory.printM()\
     memory.removeMemory(process_list[0])
     # memory.printM()
     memory.allocateMemory(process_list[1])
     # memory.printM()
 
+    # recursos = ControlaRecursos()
+    # recursos.solicitaRecurso(process_list[0].cod_printer,process_list[0].request_scanner
+    # ,process_list[0].request_modem,process_list[0].cod_disc)
+    # recursos.liberaScanner()
+    # recursos.liberaDisco(process_list[0].cod_disc)
 
 
 run()

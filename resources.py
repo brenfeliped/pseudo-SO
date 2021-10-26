@@ -1,6 +1,6 @@
 class ControlaRecursos:
-    scanners = True
     impressoras = [True, True]
+    scanner = True
     modem = True
     SATA = [True, True]
 
