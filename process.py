@@ -76,35 +76,6 @@ class Process_manager:
 
     def init_process_manager(self, processes, memory):
         self.divideProcesses(processes, memory)
-        # self.escalona(memory)
-
-    def escalona(self, memory, process):
-        #self.divideProcesses(processes, memory)
-        #print(self.fila_real_time)
-        # for p in self.fila_real_time:
-        #     #print("YOOOOO")
-        #     if memory.allocateMemory(p):
-        #         self.init_process(p)
-        #         memory.deallocateMemory(p)
-            # desalocar depois da fila
-        self.exec = process
-        self.ready_processes = [x for x in self.ready_processes if x != process]
-        memory.allocateMemory(process)
-        print("dispatcher => ")
-        print("\t PID: ", process.PID)
-        print("\t offset: ", process.offset) #implementar depois com a memoria
-        print("\t blocks: ", process.quant_memory)
-        print("\t priority: ", process.priority)
-        print("\t time:", process.cpu_time)
-        print("\t printers:", process.cod_printer)
-        print("\t scanners: ", process.request_scanner)
-        print("\t modems: ", process.request_modem)
-        print("\t drives: ", process.cod_disc)
-        if(process.priority == 0):
-            self.exec_process_real_time(process)
-        else:
-            self.exec_process_user(process)
-        return
     
     def enviarFimFila(self, memoria, processo):
         self.memoria.deallocateMemory(processo)
@@ -173,7 +144,6 @@ def create_processes(file_processes):
 
 def escalona_global(process_manager, memory, process_list): # funcao que vai receber todos modulos
         process_manager.init_process_manager(process_list, memory)
-        #list_usersProcess = [process_manager.fila_u0, process_manager.fila_u1, process_manager.fila_u2, process_manager.fila_u3]
         TIME = 0
 
         for p in process_manager.fila_real_time:
@@ -182,46 +152,28 @@ def escalona_global(process_manager, memory, process_list): # funcao que vai rec
                 process_manager.init_process(p)
                 memory.deallocateMemory(p)
                 TIME+= p.cpu_time
-            # desalocar depois da fila
         
         for p in process_manager.fila_u1:
-        # while (len(process_manager.fila_u1) > 0):
             if memory.allocateMemory(p):
                 process_manager.executing.append(p)
                 process_manager.fila_u1 = filter(lambda x: x!= p, process_manager.fila_u1)
-                # if(p.exec_time==0):
-                #     process_manager.init_process(p)
-                # else:
-                #      process_manager.exec_process_user(p)
+
         for p in process_manager.fila_u2:
-            # while (len(process_manager.fila_u1) > 0):
             if memory.allocateMemory(p):
                 process_manager.executing.append(p)
                 process_manager.fila_u1 = filter(lambda x: x!= p, process_manager.fila_u1)
-                # if(p.exec_time==0):
-                #     process_manager.init_process(p)
-                # else:
-                #      process_manager.exec_process_user(p)
+
         for p in process_manager.fila_u3:
-            # while (len(process_manager.fila_u1) > 0):
             if memory.allocateMemory(p):
                 process_manager.executing.append(p)
                 process_manager.fila_u1 = filter(lambda x: x!= p, process_manager.fila_u1)
-                # if(p.exec_time==0):
-                #     process_manager.init_process(p)
-                # else:
-                #      process_manager.exec_process_user(p)
-        
-        for p in process_manager.fila_u2:
-            pass
-        
-        for p in process_manager.fila_u3:
-            pass
 
         for p in process_manager.executing:
             if(p.exec_time==0):
                 process_manager.init_process(p)
+                memory.deallocateMemory(p)
             else:
                 process_manager.exec_process_user(p)
+                memory.deallocateMemory(p)
         
         TIME += 1

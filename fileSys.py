@@ -45,8 +45,9 @@ def get_operation_list(data_file):
     return operation_list
 
 class File_manager:
-    def __init__(self, disc_size, files_list):
+    def __init__(self, disc_size, files_list, qt_process):
         self.disco = [0] * disc_size # Inicializa tudo com zero a partir do disc size 
+        self.qt_id_process = qt_process-1
 
         # Inicializando disco
         for i in files_list:
@@ -65,7 +66,7 @@ class File_manager:
             if self.disco[x] != data_file.name_file.strip():
                 contEntrou = contEntrou+1
         if(contEntrou == len(self.disco)):
-            return (False, "O processo "+str(process_id)+" não pode deletar o arquivo"+data_file.name_file.strip()+"porque ele não existe")
+            return (False, "O processo "+str(process_id)+" não pode deletar o arquivo "+data_file.name_file.strip()+" porque ele não existe")
         if priority == 0:
             for x in range(0, len(self.disco)):
                 while(self.disco[x] == data_file.name_file.strip()):
@@ -128,15 +129,18 @@ class File_manager:
         for i in operations_list:
             qtd_op += 1
             print("Operação ",qtd_op," => ", end="")
-            if(i.cod_operation == 0):
-                isSucessfullCreate, msgResCreate = self.create_file(i.name_file, i.num_blocks)
-                print(self.msg_sucesso_falha(isSucessfullCreate))
-                print(msgResCreate)
-            elif(i.cod_operation == 1):
-                # self.msg_sucesso_falha(self.delete_file(i, 0, process.PID))
-                isSucessfullDelete, msgResDelete = self.delete_file(i, 0, process.PID)
-                print(self.msg_sucesso_falha(self.delete_file(i, 0, process.PID)))
-                print(msgResDelete)
+            if i.id_process < 0 or i.id_process > self.qt_id_process:
+                print("Falha\nO processo "+str(i.id_process)+" não existe.")
+            else:
+                if(i.cod_operation == 0):
+                    isSucessfullCreate, msgResCreate = self.create_file(i.name_file, i.num_blocks)
+                    print(self.msg_sucesso_falha(isSucessfullCreate))
+                    print(msgResCreate)
+                elif(i.cod_operation == 1):
+                    # self.msg_sucesso_falha(self.delete_file(i, 0, process.PID))
+                    isSucessfullDelete, msgResDelete = self.delete_file(i, 0, process.PID)
+                    print(self.msg_sucesso_falha(isSucessfullDelete))
+                    print(msgResDelete)
                 
             self.show_disco("Mapa de ocupação de disco: ")
 

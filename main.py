@@ -34,11 +34,6 @@ def runSO():
     
     process_list.sort(key=lambda x: x.init_time)
 
-    
-    # fm.show_disco("Disco após executar pelo processo 0")
-
-
-
     pm = Process_manager()
     memory = Memory()
     contrRecursos = ControlaRecursos()
@@ -46,10 +41,11 @@ def runSO():
     
     escalona_global(pm, memory, process_list)
 
-    fm = File_manager(N_BLOCKS, files_list)
+    fm = File_manager(N_BLOCKS, files_list, len(process_list))
     fm.show_disco("Disco inicialmente")
     fm.do_operation_list(operations_list,process_list[0])
 
+    # memory.printM()
 
 if __name__ == '__main__':
     runSO()
