@@ -43,7 +43,7 @@ def runSO():
 
     fm = File_manager(N_BLOCKS, files_list, len(process_list))
     fm.show_disco("Disco inicialmente")
-    fm.do_operation_list(operations_list,process_list[0])
+    fm.do_operation_list(operations_list)
 
     # memory.printM()
 

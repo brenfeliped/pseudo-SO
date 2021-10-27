@@ -27,13 +27,6 @@ def get_files_list(data_file):
     
     return files_list
 
-# def set_file_in_disco(files_list, blocks):
-#     disco = [0] * blocks
-#     for i in files_list:
-#         for j in range(i.first_block, i.first_block+i.quant_block):
-#             disco[j] = i.name
-#     return disco
-
 def get_operation_list(data_file):
     n = int(data_file[1])
     operation_list = []
@@ -60,7 +53,6 @@ class File_manager:
 
     def delete_file(self, data_file, priority, process_id):
      
-        # TODO: Adicionar verificações pra vê se arquivo/processo existe
         contEntrou = 0
         for x in range(0, len(self.disco)):
             if self.disco[x] != data_file.name_file.strip():
@@ -123,7 +115,7 @@ class File_manager:
         else:
             return "Falha"
         
-    def do_operation_list(self, operations_list, process):
+    def do_operation_list(self, operations_list):
         print("Sistemas de arquivos => ")
         qtd_op = 0
         for i in operations_list:
@@ -137,8 +129,7 @@ class File_manager:
                     print(self.msg_sucesso_falha(isSucessfullCreate))
                     print(msgResCreate)
                 elif(i.cod_operation == 1):
-                    # self.msg_sucesso_falha(self.delete_file(i, 0, process.PID))
-                    isSucessfullDelete, msgResDelete = self.delete_file(i, 0, process.PID)
+                    isSucessfullDelete, msgResDelete = self.delete_file(i, 0, i.id_process)
                     print(self.msg_sucesso_falha(isSucessfullDelete))
                     print(msgResDelete)
                 
