@@ -17,7 +17,7 @@ class Memory:
                 if(self.memory[i] == None):
                     countFree += 1
                     if process.quant_memory == countFree:
-                        process.pos_memory = i - process.quant_memory + 1
+                        process.offset = i - process.quant_memory + 1
                         return True
                 else:
                     countFree = 0
@@ -26,7 +26,7 @@ class Memory:
                 if(self.memory[i] == None):
                     countFree += 1
                     if process.quant_memory == countFree:
-                        process.pos_memory = i - process.quant_memory + 1
+                        process.offset = i - process.quant_memory + 1
                         return True
                 else:
                     countFree = 0
@@ -34,14 +34,14 @@ class Memory:
 
     def allocateMemory(self, process):
         if (self.verifyMemory(process) == True):
-            for i in range(process.pos_memory, process.pos_memory + process.quant_memory):
+            for i in range(process.offset, process.offset + process.quant_memory):
                 self.memory[i] = process.PID
-            print("DEU BOM")
+            return True
         else:
-            print("DEU RUIM")
+            return False
 
-    def removeMemory(self, process):
-        for i in range(process.pos_memory, process.pos_memory + process.quant_memory):
+    def deallocateMemory(self, process):
+        for i in range(process.offset, process.offset + process.quant_memory):
                 self.memory[i] = None
 
     def printM(self):
